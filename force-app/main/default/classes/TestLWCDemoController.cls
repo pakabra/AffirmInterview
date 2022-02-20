@@ -20,7 +20,7 @@ private class TestLWCDemoController {
                                WHERE NAME ='Test Client #1'
                                ];
         test.startTest();
-        Account record=LWCDemoController.getAccountDetails(accountRecord.Id);
+        LWCDemoController.AccountDetails record=LWCDemoController.getAccountDetails(accountRecord.Id);
         test.stopTest();
         system.assertEquals(accountRecord.Name,record.name,'SUCCESS');
     }

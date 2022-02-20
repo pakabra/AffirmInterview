@@ -1,0 +1,66 @@
+<template>
+    <div class="slds-box">
+        <template if:true={records}>
+            <template if:true={isDataTableEnabled}>
+                    <div class="slds-text-heading_medium">Accounts Datatable</div><br />
+                <lightning-datatable data={records} columns={columns} key-field="Id"
+                    onrowselection={handleRowSelection}>
+                </lightning-datatable>
+            </template>
+
+            <template if:true={isDetailsViewEnabled}>
+                <lightning-layout>
+                    <lightning-layout-item size="12" padding="around-small">
+                        <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account">
+                        </lightning-icon> &nbsp;
+                        <span class="slds-text-heading_medium">{accRecord.Name}</span>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout multiple-rows>
+
+                    <lightning-layout-item size="3" padding="around-small">
+                        <legend class="slds-form-element__legend slds-form-element__label ">
+                            Industry
+                        </legend>
+                        <lightning-formatted-text class="slds-form-element__control slds-form-element__static"
+                            value={accRecord.Industry}></lightning-formatted-text>
+
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" padding="around-small">
+                        <legend class="slds-form-element__legend slds-form-element__label ">
+                            Type
+                        </legend>
+                        <lightning-formatted-text class="slds-form-element__control slds-form-element__static"
+                            value={accRecord.Type}>
+                        </lightning-formatted-text>
+
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" padding="around-small">
+                        <legend class="slds-form-element__legend slds-form-element__label ">
+                            Owner Name
+                        </legend><br />
+                        <lightning-formatted-text class="slds-form-element__control slds-form-element__static"
+                            value={accRecord.OwnerName}></lightning-formatted-text>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" padding="around-small">
+                        <legend class="slds-form-element__legend slds-form-element__label ">
+                            Owner Profile Picture
+                        </legend><br />
+                        <img src={accRecord.OwnerPhotoUrl} alt={accRecord.OwnerName} />
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+            <br />
+            <div class="slds-align_absolute-center">
+                <lightning-button variant="brand" label={buttonLabel} title="btn" onclick={handleClick}
+                    class="slds-m-left_x-small"></lightning-button>
+            </div>
+        </template>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <template if:true={error}>
+            {error}
+        </template>
+    </div>
+</template>

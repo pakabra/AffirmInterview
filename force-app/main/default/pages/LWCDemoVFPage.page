@@ -1,0 +1,15 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" />    
+    <script>
+    $Lightning.use("c:LWCDemoApp", function() {
+        $Lightning.createComponent("c:LWCDemo",
+          { 
+          },
+          "LightningComponentid",
+          function(cmp) {
+              
+          });
+    });
+    </script>
+</apex:page>

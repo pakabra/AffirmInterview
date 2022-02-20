@@ -18,23 +18,7 @@ public class TestContactsCountUpdateonAccount {
          insert contactssList;
        
     }
-    static testMethod void testBatchApex(){
-         Test.startTest();
-        ContactsUpdateOnAccountBatch batchApex = new ContactsUpdateOnAccountBatch();
-        Database.executeBatch(batchApex);
-        Test.stopTest();
-        Account accountRecord=[SELECT Id,Name,Number_of_Contacts__c
-                               FROM Account
-                               WHERE Name='Test Client #0'];
-        list<AggregateResult> updatedCount=[SELECT AccountId, COUNT(Id)sum 
-                                            FROM Contact
-                                            WHERE AccountId =:accountRecord.Id 
-                                              GROUP BY AccountId
-                                              LIMIT 1];
-         AggregateResult a = (AggregateResult)updatedCount[0];
-        Integer contactsCount=(Integer) a.get('sum');
-        system.assertEquals(contactsCount,accountRecord.Number_of_Contacts__c,'SUCCESS');
-    }
+   
     public static testMethod void testschedule() {
         
         Test.StartTest();

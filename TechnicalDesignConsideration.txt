@@ -1,0 +1,51 @@
+Part #1: Trigger on Contact
+-------------------------------
+Trigger on Contact Object: ContactTrigger
+HandlerClass: ContactHandlerClass
+TestClass: TestContactHandlerClass
+
+1) Since the requirement was to update the contact field built a triigger that fires
+   on before insert and before update 
+2) As part of best practices created a handler class and added the logic to a method
+   and based on type of operation called the method from trigger and passed respective 
+   parameters
+3) Added logic to be triggered only when the conditions are met whenever a contact is 
+   updated
+4) Went with single method to avoid redundant code.
+5) In realtime use case we can achieve this functionality with a simple formula field
+
+
+Part #1: Batch Apex
+-------------------------------
+Batch Apex: ContactsUpdateOnAccountsBatch
+Iterable Apex: AggregateResultIterator, AggregateResultIterable
+Schedule Apex: ContactsUpdateOnAccountsSchedule
+TestClass: TestContactsCountUpdateonAccountsBatch
+
+1) Created Iterable batch Apex to get the count of contacts using aggregate query.
+2) We can do this using nested query and get the size of child records in a for loop in execute 
+   method to update the field on Account. But I avoided this as in a realtime scenario its not
+   an efficient way as we would have more chances to hit the SOQL limit error.
+3) And for any batch error purpose we could have logging framework which can be used across application
+   which would be easy to track as a system admin and we can have a custom logic on the Error log object
+   to send a notification based on criticality of the failure.
+
+
+Part #1: LWC Demo
+-------------------------------
+VF Page: LWCDemoVFPage
+Aura App: LWCDemoApp
+LWC: LWCDemo
+Apex: LWCDemoController
+TestClass: TestLWCDemoController
+
+1) As per the requirements built LWC component with 2 screens one for the list view 
+   and other screen for displaying the selected Account on click of Next button.Both
+   screens rendering is handled by the button logic which sets the boolean variables.
+2) Used wire call for the initial list of Accounts fetch(as its not fetching realtime data)
+3) Displayed the table using the lightning-datatable and onRowselection handle the logic 
+   to let the user select one record only by slicing the selected rows if the length >1
+4) For the css to highlight the selected record lightning-datatable has the feature already existing,
+   so did not add any additional CSS.
+5) OnClick of next button doing a servercall to fetch the account details based on the SOQL provided.
+6) Created an aura application to extend the LWC to be able to embed in VF page.
